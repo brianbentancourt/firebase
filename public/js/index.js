@@ -40,6 +40,9 @@ function logout(){
 
 function error(err){
 	console.log(err)
+	if(err){
+		alert(err.message)
+	}
 }
 
 btnLogin.addEventListener('click', function(){
@@ -55,7 +58,7 @@ btnLogin.addEventListener('click', function(){
 btnLoginF.addEventListener('click', function(){
 	event.preventDefault()
 	const provider = new firebase.auth.FacebookAuthProvider()
-	provider.addScope('public_profile')
+	provider.addScope('public_profile, email')
 
 	// para GitHub
 	//const provider = new firebase.auth.GithubAuthProvider();
