@@ -41,7 +41,7 @@ function logout(){
 function error(err){
 	console.log(err)
 	if(err){
-		alert(err.message)
+		swal("Error", err.message, "error")
 	}
 }
 
