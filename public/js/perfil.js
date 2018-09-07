@@ -8,6 +8,7 @@ let userName = document.getElementById('userName')
 let btnPush = document.getElementById('btnPush')
 let btnUpdate = document.getElementById('btnUpdate')
 let btnSet = document.getElementById('btnSet')
+let btnDelete = document.getElementById('btnDelete')
 
 
 btnPush.addEventListener('click', function(){
@@ -32,9 +33,32 @@ btnUpdate.addEventListener('click', function(){
 	REF_TEST.child('-LLpOe8qLlW-TR5Fezq3').update(obj)
 })
 
+
+// sobreescribe todo el nodo
 btnSet.addEventListener('click', function(){
-	
+	let obj = {
+		curso: 'Responsive',
+		profesor: 'Leonidas',
+		contenido: {
+			primero: "media-query"
+		}
+	}
+	REF_TEST.set(obj).then(swal("set")).catch(error)
 })
+
+
+btnDelete.addEventListener('click', function(){
+	let obj = {
+		curso: 'Responsive',
+		profesor: 'Leonidas',
+		contenido: {
+			primero: "media-query"
+		}
+	}
+	REF_TEST.child('-LLpOe8qLlW-TR5Fezq3').remove().then(swal("borrado")).catch(error)
+})
+
+
 
 function pushSuccess(){
 	swal({
@@ -76,7 +100,7 @@ function login(userData){
 		email: userData.user.email,
 		uid: userData.user.uid
 	}
-	agregarUsuario(usuario)
+	agregarUsuario(usuario, userData.user.uid)
 	swal({
      title: 'Bienvenido',
      text: userData.user.displayName,
@@ -116,6 +140,6 @@ btnLogOut.addEventListener('click', function(){
 	.catch(error)
 })
 
-function agregarUsuario(usuario){
- REF.push(usuario)
+function agregarUsuario(usuario, uid){
+ REF.child(uid).update(usuario)
 }
