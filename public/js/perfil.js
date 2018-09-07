@@ -9,6 +9,56 @@ let btnPush = document.getElementById('btnPush')
 let btnUpdate = document.getElementById('btnUpdate')
 let btnSet = document.getElementById('btnSet')
 let btnDelete = document.getElementById('btnDelete')
+ 
+
+let perfilNombre = document.getElementById('perfilNombre')
+let perfilEmail = document.getElementById('perfilEmail')
+let perfilEditar = document.getElementById('perfilEditar')
+let datosPerfil = document.getElementById('datosPerfil')
+let formularioPerfil = document.getElementById('formularioPerfil')
+let cancelForm = document.getElementById('cancelForm')
+let nombreForm = document.getElementById('nombreForm')
+let emailForm = document.getElementById('emailForm')
+
+function leerInformacion(uid){
+	// lee una sola vez
+	//REF.child(uid).once('value', llenarInformacion)
+	// actualiza en tiempo real
+	REF.child(uid).on('value', llenarInformacion)
+}
+
+function llenarInformacion(data){
+	const user = data.val()
+	perfilNombre.innerHTML = user.nombre
+	perfilEmail.innerHTML = user.email
+}
+
+perfilEditar.addEventListener('click', function(){
+	datosPerfil.style.display = 'none'
+	formularioPerfil.style.display = 'block'
+	let user = firebase.auth().currentUser
+	REF.child(user.uid).on('value', function(data){
+		const user = data.val()
+		nombreForm.value = user.nombre
+		emailForm.value = user.email
+	})
+	
+})
+
+cancelForm.addEventListener('click', function(){
+	datosPerfil.style.display = 'block'
+	formularioPerfil.style.display = 'none'
+})
+
+function editarDatos(){
+	event.preventDefault()
+	let usuario = {
+		nombre: nombreForm.value,
+		email: emailForm.value
+	}
+	REF.child(firebase.auth().currentUser.uid).update(usuario)
+}
+
 
 
 btnPush.addEventListener('click', function(){
@@ -74,8 +124,9 @@ firebase.auth().onAuthStateChanged(function(user){
 		console.log(user)
 		userName.innerHTML = user.displayName
 		mostrarLogout()
+		leerInformacion(user.uid)
 	}else{
-		console.log('No hay usuario')
+		//window.location.href = "../index.html"
 		userName.innerHTML = ''
 		mostrarLogin()
 	}
@@ -96,17 +147,18 @@ function mostrarLogout(){
 function login(userData){
 	console.log(userData)
 	let usuario ={
+		activo: true,
 		nombre: userData.user.displayName,
 		email: userData.user.email,
 		uid: userData.user.uid
 	}
 	agregarUsuario(usuario, userData.user.uid)
 	swal({
-     title: 'Bienvenido',
-     text: userData.user.displayName,
-     type: 'success',
+     	title: 'Bienvenido',
+     	text: userData.user.displayName,
+     	type: 'success',
 		 icon: 'success',
-     timer: 1500
+     	timer: 1500
      })
 }
 
@@ -143,3 +195,4 @@ btnLogOut.addEventListener('click', function(){
 function agregarUsuario(usuario, uid){
  REF.child(uid).update(usuario)
 }
+

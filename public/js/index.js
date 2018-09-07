@@ -1,3 +1,5 @@
+const REF = firebase.database().ref('usuario')
+
 let btnLogin = document.getElementById('btnLogin')
 let btnLoginGoogle = document.getElementById('btnLoginGoogle')
 let btnLoginFacebook = document.getElementById('btnLoginFacebook')
@@ -9,11 +11,11 @@ let userName = document.getElementById('userName')
 
 firebase.auth().onAuthStateChanged(function(user){
 	if(user){
-		console.log(user)
+		//console.log(user)
 		userName.innerHTML = user.displayName
 		mostrarLogout()
 	}else{
-		console.log('No hay usuario')
+		//console.log('No hay usuario')
 		userName.innerHTML = ''
 		mostrarLogin()
 	}
@@ -32,15 +34,25 @@ function mostrarLogout(){
 
 
 function login(userData){
-	console.log(userData)
-	$('#modalLogin').modal('hide')
+	let usuario ={
+		activo: true,
+		nombre: userData.user.displayName,
+		email: userData.user.email,
+		uid: userData.user.uid
+	}
+	console.log(usuario)
+	agregarUsuario(usuario, userData.user.uid)
 	swal({
-     title: 'Bienvenido',
-     text: userData.user.displayName,
-     type: 'success',
-		 icon: 'success',
-     timer: 1500
-     })
+     	title: 'Bienvenido',
+     	text: userData.user.displayName,
+     	type: 'success',
+		icon: 'success',
+     	timer: 1500
+    })
+}
+
+function agregarUsuario(usuario, uid){
+ REF.child(uid).update(usuario)
 }
 
 function logout(){
