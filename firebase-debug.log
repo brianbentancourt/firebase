@@ -1,0 +1,24 @@
+[debug] [2018-09-07T18:08:15.256Z] ----------------------------------------------------------------------
+[debug] [2018-09-07T18:08:15.259Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\EQUIPO9\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-09-07T18:08:15.259Z] CLI Version:   4.2.1
+[debug] [2018-09-07T18:08:15.259Z] Platform:      win32
+[debug] [2018-09-07T18:08:15.259Z] Node Version:  v10.9.0
+[debug] [2018-09-07T18:08:15.261Z] Time:          Fri Sep 07 2018 15:08:15 GMT-0300 (GMT-03:00)
+[debug] [2018-09-07T18:08:15.261Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-09-07T18:08:15.276Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-09-07T18:08:15.277Z] > authorizing via signed-in user
+[debug] [2018-09-07T18:08:15.280Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/platzi-invie-4e1b8  
+ 
+[debug] [2018-09-07T18:08:16.231Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-07T18:08:16.235Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/platzi-invie-4e1b8  
+ 
+[debug] [2018-09-07T18:08:17.458Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\EQUIPO9\Documents\firebase'...
+[info] 
+[debug] [2018-09-07T18:08:17.466Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/920823603671/clients/_:getWebAppConfig  
+ 
+[debug] [2018-09-07T18:08:18.697Z] <<< HTTP RESPONSE 200
+[info] i  hosting[platzi-invie-4e1b8]: Serving hosting files from: ./
+[info] +  hosting[platzi-invie-4e1b8]: Local server: http://localhost:5000
