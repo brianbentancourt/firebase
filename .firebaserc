@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "platzi-invie-4e1b8"
+    "default": "platzi-invie-4e1b8",
+    "invie-firebase": "platzi-invie-4e1b8"
   }
 }
