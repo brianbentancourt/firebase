@@ -1,10 +1,10 @@
 const REF = firebase.database().ref('usuario')
 const REF_GUITARRAS = firebase.database().ref('guitarras')
-const STORAGE = firebase.storage().ref()
+const STORAGE = firebase.storage()
 
-STORAGE.child('invie-acustica.png').getDownloadURL().then(function(url){
-	console.log(url)
-})
+// STORAGE.child('invie-acustica.png').getDownloadURL().then(function(url){
+// 	console.log(url)
+// })
 
 let btnLogin = document.getElementById('btnLogin')
 let btnLoginGoogle = document.getElementById('btnLoginGoogle')
@@ -111,13 +111,13 @@ btnLogOut.addEventListener('click', function(){
 
 function leerGuitarras () {
   REF_GUITARRAS.child('vip').on('child_added', (datos) => {
-    console.log('vip', datos.val())
+    //console.log('vip', datos.val())
     const guitar = datos.val()
     const nombreGui = datos.val().nombre
     const contenedorElementos = document.getElementById('guitarrasContent')
-    console.log(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.metadata)
+    //console.log(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.metadata)
     contenedorElementos.insertBefore(
-      crearElementoGuitarra(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.img),
+      crearElementoGuitarra(datos),
         contenedorElementos.firsChild
       )
   } )
@@ -125,32 +125,32 @@ function leerGuitarras () {
 
 function leerguitarrasVip () {
   REF_GUITARRAS.child('normal').on('child_added', (datos) => {
-    console.log('normales', datos.val())
+    //console.log('normales', datos.val())
     const guitar = datos.val()
     const nombreGui = datos.val().nombre
     const contenedorElementos = document.getElementById('guitarrasContentVip')
-    console.log(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.metadata)
+    //console.log(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.metadata)
     contenedorElementos.insertBefore(
-      crearElementoGuitarra(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.img),
+      crearElementoGuitarra(datos),
         contenedorElementos.firstChild
       )
   } )
 }
 
-function crearElementoGuitarra(key, nombre, precio, descripcion, img) {
+function crearElementoGuitarra(data) {
   const uid = firebase.auth().currentUser.uid
 
   const html =
       '<article class="guitarra contenedor">' +
-        '<img class="derecha" src="" alt="Guitarra Invie Acustica" width="150"/>' +
+        '<img class="derecha" style="top:0;" width="150"/>' +
         '<div class="contenedor-guitarra-a">' +
           '<h3 class="title-b"></h3>' +
-          '<ol>' +
-            '<li class="precio-b"></li>' +
+          '<ul>' +
             '<li class="descripcion-b"></li>' +
-          '</ol>' +
+						'<li class="precio-b"></li>' +
+          '</ul>' +
         '</div>' +
-        '<button type="button" onclick="comprar('+'`'+key+'`'+')">Comprar</button>'+
+        '<button type="button" class="btn btn-primary" onclick="comprar('+'`'+data.key+'`'+','+'`'+data.val().tipo+'`'+')"">Comprar</button>'+
       '</article>'
 
   // Create the DOM element from the HTML
@@ -158,17 +158,28 @@ function crearElementoGuitarra(key, nombre, precio, descripcion, img) {
   div.innerHTML = html
 
   const guitarElement = div.firstChild
-  var imgURL = ""
-  STORAGE.child(img).getDownloadURL().then((url) => {
-    imgURL = url
-  }).then(() => {
-    guitarElement.getElementsByClassName('title-b')[0].innerText = nombre
-    guitarElement.getElementsByClassName('precio-b')[0].innerText = precio
-    guitarElement.getElementsByClassName('descripcion-b')[0].innerText = descripcion
-    guitarElement.getElementsByClassName('derecha')[0].src = imgURL
-  })
+	guitarElement.getElementsByClassName('title-b')[0].innerText = data.val().nombre
+	guitarElement.getElementsByClassName('precio-b')[0].innerText = `$ ${data.val().precio}`
+	guitarElement.getElementsByClassName('descripcion-b')[0].innerText = data.val().descripcion
+	if(data.val().img){
+		var imgURL = ""
+		  STORAGE.ref(data.val().tipo).child(data.val().img).getDownloadURL().then((url) => {
+		    imgURL = url
+		  }).then(() => {
+	    guitarElement.getElementsByClassName('derecha')[0].src = imgURL
+	  })
+	}
+
   return guitarElement
 }
 
 leerGuitarras()
 leerguitarrasVip()
+
+
+function comprar(key,tipo){
+	REF_GUITARRAS.child(tipo).child(key).on('value', function(data){
+		swal(data.val().nombre,`$ ${data.val().precio}`,'success')
+	})
+
+}

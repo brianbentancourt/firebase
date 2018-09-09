@@ -40,7 +40,7 @@ function nuevaGuitarra(){
     descripcion: descripcion.value,
     tipo: tipo.value,
     precio: precio.value,
-    img: imagen.value
+    img: imagen ? imagen.value : ''
   }
   if(guitarra.tipo !== "normal" && guitarra.tipo !== "vip"){
     swal('Error', 'El tipo de guitarras debe ser normal o vip', 'error')
@@ -49,5 +49,14 @@ function nuevaGuitarra(){
 }
 
 function guardarGuitarra(guitarra){
-  REF_GUITARRAS.child(guitarra.tipo).push(guitarra).then(swal('Datos ingresados'))
+  REF_GUITARRAS.child(guitarra.tipo).push(guitarra).then(guitarraGuardada)
+}
+
+function guitarraGuardada(){
+  swal('Datos ingresados')
+  nombre.value = ''
+  descripcion.value = ''
+  tipo.value = ''
+  precio.value = ''
+  imagen ? imagen.value : ''
 }

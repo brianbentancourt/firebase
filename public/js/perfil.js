@@ -1,15 +1,8 @@
 const REF = firebase.database().ref('usuario')
-const REF_TEST = firebase.database().ref('test')
 
 let btnLoginGoogle = document.getElementById('btnLoginGoogle')
 let btnLogOut = document.getElementById('btnLogout')
 let userName = document.getElementById('userName')
-
-let btnPush = document.getElementById('btnPush')
-let btnUpdate = document.getElementById('btnUpdate')
-let btnSet = document.getElementById('btnSet')
-let btnDelete = document.getElementById('btnDelete')
-
 
 let perfilNombre = document.getElementById('perfilNombre')
 let perfilEmail = document.getElementById('perfilEmail')
@@ -79,57 +72,6 @@ function editarDatos(){
 	}
 	REF.child(firebase.auth().currentUser.uid).update(usuario)
 }
-
-
-
-btnPush.addEventListener('click', function(){
-	let obj = {
-		curso: 'firebase',
-		profesor: 'Angel',
-		contenido: {
-			temas: ['autenticacion', 'conexion']
-		}
-	}
-	REF_TEST.push(obj).then(pushSuccess).catch(error)
-})
-
-btnUpdate.addEventListener('click', function(){
-	let obj = {
-		curso: 'firebase 3',
-		profesor: 'Sacha',
-		contenido: {
-			primero: "formularios"
-		}
-	}
-	REF_TEST.child('-LLpOe8qLlW-TR5Fezq3').update(obj)
-})
-
-
-// sobreescribe todo el nodo
-btnSet.addEventListener('click', function(){
-	let obj = {
-		curso: 'Responsive',
-		profesor: 'Leonidas',
-		contenido: {
-			primero: "media-query"
-		}
-	}
-	REF_TEST.set(obj).then(swal("set")).catch(error)
-})
-
-
-btnDelete.addEventListener('click', function(){
-	let obj = {
-		curso: 'Responsive',
-		profesor: 'Leonidas',
-		contenido: {
-			primero: "media-query"
-		}
-	}
-	REF_TEST.child('-LLpOe8qLlW-TR5Fezq3').remove().then(swal("borrado")).catch(error)
-})
-
-
 
 function pushSuccess(){
 	swal({
@@ -216,3 +158,66 @@ btnLogOut.addEventListener('click', function(){
 function agregarUsuario(usuario, uid){
  REF.child(uid).update(usuario)
 }
+
+
+
+
+
+
+
+
+
+
+// const REF_TEST = firebase.database().ref('test')
+//
+// let btnPush = document.getElementById('btnPush')
+// let btnUpdate = document.getElementById('btnUpdate')
+// let btnSet = document.getElementById('btnSet')
+// let btnDelete = document.getElementById('btnDelete')
+//
+// btnPush.addEventListener('click', function(){
+// 	let obj = {
+// 		curso: 'firebase',
+// 		profesor: 'Angel',
+// 		contenido: {
+// 			temas: ['autenticacion', 'conexion']
+// 		}
+// 	}
+// 	REF_TEST.push(obj).then(pushSuccess).catch(error)
+// })
+//
+// btnUpdate.addEventListener('click', function(){
+// 	let obj = {
+// 		curso: 'firebase 3',
+// 		profesor: 'Sacha',
+// 		contenido: {
+// 			primero: "formularios"
+// 		}
+// 	}
+// 	REF_TEST.child('-LLpOe8qLlW-TR5Fezq3').update(obj)
+// })
+//
+//
+// // sobreescribe todo el nodo
+// btnSet.addEventListener('click', function(){
+// 	let obj = {
+// 		curso: 'Responsive',
+// 		profesor: 'Leonidas',
+// 		contenido: {
+// 			primero: "media-query"
+// 		}
+// 	}
+// 	REF_TEST.set(obj).then(swal("set")).catch(error)
+// })
+//
+//
+// btnDelete.addEventListener('click', function(){
+// 	let obj = {
+// 		curso: 'Responsive',
+// 		profesor: 'Leonidas',
+// 		contenido: {
+// 			primero: "media-query"
+// 		}
+// 	}
+// 	REF_TEST.child('-LLpOe8qLlW-TR5Fezq3').remove().then(swal("borrado")).catch(error)
+// })

@@ -35,15 +35,14 @@
     </header>
 
     <section id="guitarras" class="contenedor">
-      chispitas
       <h2>Nueva guitarra</h2>
       <form action="" onsubmit="nuevaGuitarra()">
-        <input type="text" id="nombre" placeholder="Nombre" autocomplete="off">
-        <input type="text" id="descripcion" placeholder="descripcion">
-        <input type="text" id="tipo" placeholder="tipo">
-        <input type="text" id="precio" placeholder="precio">
+        <input type="text" id="nombre" placeholder="Nombre" autocomplete="off" required>
+        <input type="text" id="descripcion" placeholder="descripcion" required>
+        <input type="text" id="tipo" placeholder="tipo" required>
+        <input type="text" id="precio" placeholder="precio" required>
         <input type="text" id="img" placeholder="img">
-        <button type="submit">Agregar</button>
+        <button type="submit" class="btn btn-success btn-sm">Agregar</button>
       </form>
     </section>
     <footer class="footer">
