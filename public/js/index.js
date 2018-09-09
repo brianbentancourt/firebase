@@ -13,15 +13,18 @@ let btnLoginTwitter = document.getElementById('btnLoginTwitter')
 let btnLoginGitHub = document.getElementById('btnLoginGitHub')
 let btnLogOut = document.getElementById('btnLogOut')
 let userName = document.getElementById('userName')
+let authRequire = document.getElementById('authRequire')
 
 firebase.auth().onAuthStateChanged(function(user){
 	if(user){
 		//console.log(user)
 		userName.innerHTML = user.displayName
 		mostrarLogout()
+		authRequire.style.display = 'block'
 	}else{
 		//console.log('No hay usuario')
 		userName.innerHTML = ''
+		authRequire.style.display = 'none'
 		mostrarLogin()
 	}
 })

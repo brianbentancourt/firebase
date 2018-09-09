@@ -194,7 +194,7 @@ function agregarUsuario(usuario, uid){
 // 			primero: "formularios"
 // 		}
 // 	}
-// 	REF_TEST.child('-LLpOe8qLlW-TR5Fezq3').update(obj)
+// 	REF_TEST.child('-sdjfh4h5jks3').update(obj)
 // })
 //
 //
@@ -219,5 +219,5 @@ function agregarUsuario(usuario, uid){
 // 			primero: "media-query"
 // 		}
 // 	}
-// 	REF_TEST.child('-LLpOe8qLlW-TR5Fezq3').remove().then(swal("borrado")).catch(error)
+// 	REF_TEST.child('-sdjfh4h5jks3').remove().then(swal("borrado")).catch(error)
 // })
