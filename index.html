@@ -24,6 +24,9 @@
               <a href="index.html">Home</a>
             </li>
             <li>
+              <a href="public/admin.html">Admin</a>
+            </li>
+            <li>
               <a id="btnLogin" href="" style="display: none;" data-toggle="modal" data-target="#modalLogin">Ingresar</a>
             </li>
             <li>
@@ -77,8 +80,10 @@
           </div>
         </div>
       </div>
+      <section id="guitarrasContent"></section>
+      <section id="guitarrasContentVip"></section>
       <!-- <video src="video/320x240.ogg"></video> -->
-      <article class="guitarra"> <!-- guitarra 1 -->
+      <!-- <article class="guitarra">
         <img class="derecha" data-src="public/images/invie-acustica.png|public/images/invie-acustica2x.png"  alt="Guitarra Invie Acustica" width="350"/>
         <div class="contenedor-guitarra-a">
           <h3 class="title-b">Invie Acustica</h3>
@@ -89,7 +94,7 @@
           </ol>
         </div>
       </article>
-      <article class="guitarra b"> <!-- guitarra 2 -->
+      <article class="guitarra b">
         <img class="izquierda" data-src="public/images/invie-classic.png|public/images/invie-classic2x.png" alt="Guitarra Invie Classic" width="350"/>
         <div class="contenedor-guitarra-b">
           <h3 class="title-b">Invie Classic</h3>
@@ -99,7 +104,7 @@
             <li>Inicia tu camino como Rockstar</li>
           </ol>
         </div>
-      </article>
+      </article> -->
     </section>
     <footer class="footer">
       <div class="contenedor">
@@ -151,6 +156,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-storage.js"></script>
     <script>
       // Initialize Firebase
       var config = {

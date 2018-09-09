@@ -1,4 +1,10 @@
 const REF = firebase.database().ref('usuario')
+const REF_GUITARRAS = firebase.database().ref('guitarras')
+const STORAGE = firebase.storage().ref()
+
+STORAGE.child('invie-acustica.png').getDownloadURL().then(function(url){
+	console.log(url)
+})
 
 let btnLogin = document.getElementById('btnLogin')
 let btnLoginGoogle = document.getElementById('btnLoginGoogle')
@@ -7,7 +13,6 @@ let btnLoginTwitter = document.getElementById('btnLoginTwitter')
 let btnLoginGitHub = document.getElementById('btnLoginGitHub')
 let btnLogOut = document.getElementById('btnLogOut')
 let userName = document.getElementById('userName')
-
 
 firebase.auth().onAuthStateChanged(function(user){
 	if(user){
@@ -102,3 +107,68 @@ btnLogOut.addEventListener('click', function(){
 	.then(logout)
 	.catch(error)
 })
+
+
+function leerGuitarras () {
+  REF_GUITARRAS.child('vip').on('child_added', (datos) => {
+    console.log('vip', datos.val())
+    const guitar = datos.val()
+    const nombreGui = datos.val().nombre
+    const contenedorElementos = document.getElementById('guitarrasContent')
+    console.log(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.metadata)
+    contenedorElementos.insertBefore(
+      crearElementoGuitarra(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.img),
+        contenedorElementos.firsChild
+      )
+  } )
+}
+
+function leerguitarrasVip () {
+  REF_GUITARRAS.child('normal').on('child_added', (datos) => {
+    console.log('normales', datos.val())
+    const guitar = datos.val()
+    const nombreGui = datos.val().nombre
+    const contenedorElementos = document.getElementById('guitarrasContentVip')
+    console.log(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.metadata)
+    contenedorElementos.insertBefore(
+      crearElementoGuitarra(datos.key, guitar.nombre, guitar.precio, guitar.descripcion, guitar.img),
+        contenedorElementos.firstChild
+      )
+  } )
+}
+
+function crearElementoGuitarra(key, nombre, precio, descripcion, img) {
+  const uid = firebase.auth().currentUser.uid
+
+  const html =
+      '<article class="guitarra contenedor">' +
+        '<img class="derecha" src="" alt="Guitarra Invie Acustica" width="150"/>' +
+        '<div class="contenedor-guitarra-a">' +
+          '<h3 class="title-b"></h3>' +
+          '<ol>' +
+            '<li class="precio-b"></li>' +
+            '<li class="descripcion-b"></li>' +
+          '</ol>' +
+        '</div>' +
+        '<button type="button" onclick="comprar('+'`'+key+'`'+')">Comprar</button>'+
+      '</article>'
+
+  // Create the DOM element from the HTML
+	const div = document.createElement('div')
+  div.innerHTML = html
+
+  const guitarElement = div.firstChild
+  var imgURL = ""
+  STORAGE.child(img).getDownloadURL().then((url) => {
+    imgURL = url
+  }).then(() => {
+    guitarElement.getElementsByClassName('title-b')[0].innerText = nombre
+    guitarElement.getElementsByClassName('precio-b')[0].innerText = precio
+    guitarElement.getElementsByClassName('descripcion-b')[0].innerText = descripcion
+    guitarElement.getElementsByClassName('derecha')[0].src = imgURL
+  })
+  return guitarElement
+}
+
+leerGuitarras()
+leerguitarrasVip()

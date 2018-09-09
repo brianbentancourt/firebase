@@ -9,16 +9,25 @@ let btnPush = document.getElementById('btnPush')
 let btnUpdate = document.getElementById('btnUpdate')
 let btnSet = document.getElementById('btnSet')
 let btnDelete = document.getElementById('btnDelete')
- 
+
 
 let perfilNombre = document.getElementById('perfilNombre')
 let perfilEmail = document.getElementById('perfilEmail')
+let perfilTelefono = document.getElementById('perfilTelefono')
+let perfilDireccion = document.getElementById('perfilDireccion')
+
 let perfilEditar = document.getElementById('perfilEditar')
 let datosPerfil = document.getElementById('datosPerfil')
 let formularioPerfil = document.getElementById('formularioPerfil')
 let cancelForm = document.getElementById('cancelForm')
+
 let nombreForm = document.getElementById('nombreForm')
 let emailForm = document.getElementById('emailForm')
+let telefonoForm = document.getElementById('telefonoForm')
+let calleForm = document.getElementById('calleForm')
+let numeroPuertaForm = document.getElementById('numeroPuertaForm')
+let departamentoForm = document.getElementById('departamentoForm')
+let cpForm = document.getElementById('cpForm')
 
 function leerInformacion(uid){
 	// lee una sola vez
@@ -31,7 +40,12 @@ function llenarInformacion(data){
 	const user = data.val()
 	perfilNombre.innerHTML = user.nombre
 	perfilEmail.innerHTML = user.email
+  perfilTelefono.innerHTML = user.telefono || ""
+  perfilDireccion.innerHTML = user.direccion ? llenarDireccion(user.direccion) : ""
 }
+
+const llenarDireccion = direccion => `${direccion.calle} ${direccion.numeroPuerta}, ${direccion.departamento} ${direccion.cp}`
+
 
 perfilEditar.addEventListener('click', function(){
 	datosPerfil.style.display = 'none'
@@ -41,8 +55,15 @@ perfilEditar.addEventListener('click', function(){
 		const user = data.val()
 		nombreForm.value = user.nombre
 		emailForm.value = user.email
+    telefonoForm.value = user.telefono || ""
+    if(user.direccion){
+      calleForm.value = user.direccion.calle
+      numeroPuertaForm.value = user.direccion.numeroPuerta
+      departamentoForm.value = user.direccion.departamento
+      cpForm.value = user.direccion.cp
+    }
 	})
-	
+
 })
 
 cancelForm.addEventListener('click', function(){
@@ -126,7 +147,7 @@ firebase.auth().onAuthStateChanged(function(user){
 		mostrarLogout()
 		leerInformacion(user.uid)
 	}else{
-		//window.location.href = "../index.html"
+		window.location.href = "../index.html"
 		userName.innerHTML = ''
 		mostrarLogin()
 	}
@@ -148,9 +169,9 @@ function login(userData){
 	console.log(userData)
 	let usuario ={
 		activo: true,
+    uid: userData.user.uid,
 		nombre: userData.user.displayName,
-		email: userData.user.email,
-		uid: userData.user.uid
+		email: userData.user.email
 	}
 	agregarUsuario(usuario, userData.user.uid)
 	swal({
@@ -195,4 +216,3 @@ btnLogOut.addEventListener('click', function(){
 function agregarUsuario(usuario, uid){
  REF.child(uid).update(usuario)
 }
-

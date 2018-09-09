@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tu perfil</title>
+    <title>Admin</title>
     <meta charset="utf-8"/>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|Allerta' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/invie.css"/>
@@ -24,83 +24,34 @@
               <a href="#" id="btnLoginGoogle">Iniciar sesión</a>
             </li>
             <li>
-              <a id="userName" href="#"></a>
+              <a id="userName" href="perfil.html"></a>
             </li>
             <li>
               <a href="#" id="btnLogout" style="display: none">Cerrar sesión</a>
             </li>
-
           </ul>
         </nav>
       </div>
     </header>
-    <section class="tabla datosPerfil" id="datosPerfil">
-      <div class="contenedor">
-        <h1>Tu Perfil</h1>
-        <label for="perfilNombre">Nombre</label>
-        <h3 id="perfilNombre"></h3>
-        <label for="perfilEmail">Email</label>
-        <h3 id="perfilEmail"></h3>
-        <label for="perfilTelefono">Teléfono</label>
-        <h3 id="perfilTelefono"></h3>
-        <label for="perfilDireccion">Direccion</label>
-        <h3 id="perfilDireccion"></h3>
-        <button id="perfilEditar" class="btn btn-primary">Editar</button>
-      </div>
-      <div class="contenedor">
-        <button id="btnPush" class="btn btn-success">Push</button>
-        <button id="btnUpdate" class="btn btn-info">Update</button>
-        <button id="btnSet" class="btn btn-warning">Set</button>
-        <button id="btnDelete" class="btn btn-danger">Delete</button>
-      </div>
-    </section>
-    <section class="formularioPerfil" onsubmit="editarDatos()" id="formularioPerfil" style="display:none">
 
-      <div class="contenedor">
-        <h2>Edita tu información</h2>
-        <form action="" name="formPerfil">
-          <div>
-            <label for="nombreForm">Nombre:</label>
-            <input type="text" id="nombreForm" required>
-          </div>
-          <div>
-            <label for="emailForm">Email:</label>
-            <input type="text" id="emailForm" required>
-          </div>
-          <div>
-            <label for="telefonoForm">Teléfono:</label>
-            <input type="text" id="telefonoForm" required>
-          </div>
-          <div>
-            Dirección
-          </div>
-          <div>
-            <label for="calleForm">Calle:</label>
-            <input type="text" id="calleForm" required>
-          </div>
-          <div>
-            <label for="numeroPuertaForm">Num. Int.:</label>
-            <input type="text" id="numeroPuertaForm" required>
-          </div>
-          <div>
-            <label for="departamentoForm">Departamento:</label>
-            <input type="text" id="departamentoForm" required>
-          </div>
-          <div>
-            <label for="cpForm">Código postal:</label>
-            <input type="text" id="cpForm" required>
-          </div>
-          <button type="button" id="cancelForm" class="btn btn-default">cancelar</button>
-          <button type="submit" class="btn btn-success">Guardar</button>
-        </form>
-      </div>
+    <section id="guitarras" class="contenedor">
+      chispitas
+      <h2>Nueva guitarra</h2>
+      <form action="" onsubmit="nuevaGuitarra()">
+        <input type="text" id="nombre" placeholder="Nombre" autocomplete="off">
+        <input type="text" id="descripcion" placeholder="descripcion">
+        <input type="text" id="tipo" placeholder="tipo">
+        <input type="text" id="precio" placeholder="precio">
+        <input type="text" id="img" placeholder="img">
+        <button type="submit">Agregar</button>
+      </form>
     </section>
     <footer class="footer">
       <div class="contenedor">
         <div class="contacto">
           <img src="images/invie-white.png" alt="logotipo blanco"/>
           <a href="tel:+573024456678"><strong>Telefono</strong> <span>3024456678</span></a>
-          <a href="/cdn-cgi/l/email-protection#a5c6cacbd1c4c6d1cae5cccbd3ccc08bc6cac8"><strong>E-mail</strong> <span><span class="__cf_email__" data-cfemail="fa9995948e9b998e95ba93948c939fd4999597">[email&#160;protected]</span></span></a>
+          <a href="/cdn-cgi/l/email-protection#9cfff3f2e8fdffe8f3dcf5f2eaf5f9b2fff3f1"><strong>E-mail</strong> <span><span class="__cf_email__" data-cfemail="3e5d51504a5f5d4a517e575048575b105d5153">[email&#160;protected]</span></span></a>
         </div>
         <form class="formulario">
           <div class="col1">
@@ -139,11 +90,11 @@
         </form>
       </div>
     </footer>
-    <!--<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
+    <!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.5.4/blazy.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-database.js"></script>
     <script>
       // Initialize Firebase
       var config = {
@@ -159,7 +110,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="js/perfil.js"></script>
+    <script src="js/admin.js"></script>
     <script>
       var consulta = window.matchMedia('(max-width: 500px)');
       consulta.addListener(mediaQuery);
